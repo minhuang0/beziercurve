@@ -6,11 +6,12 @@
     <title>贝塞尔曲线绘制</title>
 </head>
 
-<body>  
+<body> 
+    <div class="my-canvas"></div>
     <script src="js/beziercurve.js"></script>
     <script>
     var args = {
-        parent: document.getElementsByTagName('body')[0],
+        parent: document.getElementsByClassName('my-canvas')[0],
         width: 700,
         height: 400,
     }
