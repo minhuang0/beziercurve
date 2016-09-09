@@ -4,19 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <title>贝塞尔曲线绘制</title>
+    <link rel="stylesheet" href="css/index.css"> 
 </head>
 
-<body> 
+<body>
     <div class="my-canvas"></div>
+    <div class="operation">
+        <button onclick="exportData()">导出数据</button>
+        <button onclick="importData()">导入数据</button>
+        <button onclick="claertData()">删除所有历史记录</button>
+    </div>
+    <input type="text" name="importData" placeholder="请输入数组对象并点击导入数据按钮">
+    <div class="history"></div>
+    <div class="help">
+        <p>帮助文档:</p>
+        <ul>
+            <li>
+                <p>鼠标点击空白区域绘制点</p>
+            </li>
+            <li>
+                <p>按住当前普通点拖动点的位置,按住bezier控制器点改变bezier控制点的位置</p>
+            </li>
+            <li>
+                <p>按住键盘c后点击点出现bezier控制器</p>
+            </li>
+            <li>
+                <p>按住键盘ctrl后点击拖动bezier控制器改变单向线条bezier控制点的位置</p>
+            </li>
+            <li>
+                <p>按住键盘n后点击点绘制一个新的起点</p>
+            </li>
+            <li>
+                <p>按住键盘d后点击点删除这个点</p>
+            </li>
+            <li>
+                <p>按住键盘ctrl后再按键盘z删除上个绘制的点</p>
+            </li>
+            <li>
+                <p>点击导出数据会生成一条记录,复制改记录到导入数据的输入框内，点击导入数据能够重新绘制出上一个点</p>
+            </li>
+        </ul>
+    </div>
     <script src="js/beziercurve.js"></script>
-    <script>
-    var args = {
-        parent: document.getElementsByClassName('my-canvas')[0],
-        width: 700,
-        height: 400,
-    }
-    var beziercurve = new Beziercurve(args);
-    </script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
