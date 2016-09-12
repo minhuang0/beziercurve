@@ -32,33 +32,26 @@ function Beziercurve(args) {
     args.parent.appendChild(canvas);
 
     // 初始化参数 
-    var canvasLeft = canvas.offsetLeft,
-        canvasTop = canvas.offsetTop,
-        context = canvas.getContext('2d'),
+    var context = canvas.getContext('2d'),
         points = [],
         pointControl = [],
+        // 当前点击的点的坐标
         currentPointIdx,
+        // 默认点的半径
         pointR = parseFloat(args.pointR) || 4,
         bezierDefaultLength = parseFloat(args.bezierDefaultLength) || 100,
         // 记录document 点击的元素和 按住的按键值
         lastDownTarget, keyDownNum = 0,
         //鼠标的x轴和y轴的位置
-        x, y;
+        x, y, 
+        // 当前points的最后一个元素
+        prePoint, 
+        //是否点击的普通点,是否点击的是控制器的点
+        isTouchPoint, isTouchControlPoint;
 
     // canvas mousedown event 用于检测用户时候点击拖拽点
     canvas.addEventListener('mousedown', function(e) {
         setMousePositon(e);
-        var prePoint = points[points.length - 1],
-            isTouchPoint = pointIsToExist({
-                points: points,
-                x: x,
-                y: y
-            }),
-            isTouchControlPoint = pointIsToExist({
-                points: pointControl,
-                x: x,
-                y: y
-            });
         if (isTouchPoint.pointIsExist) {
             movePoint(points, isTouchPoint.currentPointIdx);
         } else if (isTouchControlPoint.pointIsExist) {
@@ -71,26 +64,27 @@ function Beziercurve(args) {
         return this[this.length - 1];
     };
 
+    /* 修改全局的x,y轴的位置 */
     function setMousePositon(e) {
         x = e.pageX - canvas.offsetLeft;
         y = e.pageY - canvas.offsetTop;
+        prePoint = points[points.length - 1];
+        isTouchPoint = pointIsToExist({
+            points: points,
+            x: x,
+            y: y
+        });
+        isTouchControlPoint = pointIsToExist({
+            points: pointControl,
+            x: x,
+            y: y
+        });
     }
 
 
-    // 双击事件,当双击到指定元素时,如果存在普通点,则创建BezierControl(控制器)
+    //单击事件,当单击到指定元素时,判断是否创建新的点或者判断键盘按下状态执行删除,创建
     canvas.addEventListener('click', function(e) {
         setMousePositon(e);
-        var prePoint = points[points.length - 1],
-            isTouchPoint = pointIsToExist({
-                points: points,
-                x: x,
-                y: y
-            }),
-            isTouchControlPoint = pointIsToExist({
-                points: pointControl,
-                x: x,
-                y: y
-            });
         // 当点击位置存在普通点
         if (isTouchPoint.pointIsExist) {
             if (keyDownNum === 67) {
@@ -122,6 +116,15 @@ function Beziercurve(args) {
         //绘制所有的点
         draw();
 
+    });
+
+    //双击事件
+    canvas.addEventListener('dblclick', function(e) {
+        setMousePositon(e);
+        // 当点击位置存在普通点
+        if (isTouchPoint.pointIsExist) {
+            showBezierControl(points, isTouchPoint.currentPointIdx);
+        }
     });
 
 

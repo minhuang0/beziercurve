@@ -15,7 +15,7 @@ function exportData() {
     getLocalStorageAndShow();
 };
 
-//导入数据
+//导入数据 用到 beziercurve.importData()方法,参数为Array
 function importData() {
     beziercurve.importData(JSON.parse(document.getElementsByName('importData')[0].value));
 };
