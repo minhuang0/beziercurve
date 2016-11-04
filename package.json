@@ -1,0 +1,42 @@
+{
+  "name": "beziercurve",
+  "version": "1.0.0",
+  "description": "能在canvas画布上面绘制不同线条,并能够通过的键盘按键加鼠标单击的方式打开每个点的贝塞尔曲线的样式。",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel --presets es2015 src/js/index.js -o dist/index.js"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhuang0/beziercurve.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhuang0/beziercurve/issues"
+  },
+  "homepage": "https://github.com/minhuang0/beziercurve#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-connect": "^5.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
