@@ -23,13 +23,23 @@
  *      beziercurve.importData(myData);
  * create_by : huangmin0822@163.com
  */
+Array.prototype.last = function() {
+    return this[this.length - 1];
+};
 
-function Beziercurve(args) {
+let createCanvas = (canvasWidth, canvasHeight) => {
+    let canvas = document.createElement('canvas');
+    canvas.width = parseInt(canvasWidth);
+    canvas.height = parseInt(canvasHeight);
+    return canvas;
+};
+
+
+function Beziercurve({ parent, canvasWidth = 800, canvasHeight = 500, pointR = 4, bezierDefaultLength = 100 }) {
+
     // 创建canvas 
-    var canvas = document.createElement('canvas');
-    canvas.width = parseInt(args.width) || 800;
-    canvas.height = parseInt(args.height) || 500;
-    args.parent.appendChild(canvas);
+    var canvas = createCanvas(canvasWidth, canvasHeight);
+    parent.appendChild(canvas);
 
     // 初始化参数 
     var context = canvas.getContext('2d'),
@@ -37,15 +47,12 @@ function Beziercurve(args) {
         pointControl = [],
         // 当前点击的点的坐标
         currentPointIdx,
-        // 默认点的半径
-        pointR = parseFloat(args.pointR) || 4,
-        bezierDefaultLength = parseFloat(args.bezierDefaultLength) || 100,
         // 记录document 点击的元素和 按住的按键值
         lastDownTarget, keyDownNum = 0,
         //鼠标的x轴和y轴的位置
-        x, y, 
+        x, y,
         // 当前points的最后一个元素
-        prePoint, 
+        prePoint,
         //是否点击的普通点,是否点击的是控制器的点
         isTouchPoint, isTouchControlPoint;
 
@@ -60,9 +67,7 @@ function Beziercurve(args) {
     }, false);
 
 
-    Array.prototype.last = function() {
-        return this[this.length - 1];
-    };
+
 
     /* 修改全局的x,y轴的位置 */
     function setMousePositon(e) {
@@ -317,3 +322,5 @@ function Beziercurve(args) {
         document.onmousemove = null;
     };
 }
+
+export { Beziercurve };

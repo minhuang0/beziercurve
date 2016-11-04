@@ -1,3 +1,5 @@
+import {Beziercurve} from './beziercurve';
+
 // 实例化构造函数
 var beziercurve = new Beziercurve({
     parent: document.getElementsByClassName('my-canvas')[0]
